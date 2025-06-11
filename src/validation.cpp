@@ -1940,17 +1940,17 @@ PackageMempoolAcceptResult ProcessNewPackage(Chainstate& active_chainstate, CTxM
 }
 
 CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
-{
-    int halvings = nHeight / consensusParams.nSubsidyHalvingInterval;
-    // Force block reward to zero when right shift is undefined.
+{    
+    int halvings = (nHeight / 210000) % 33;           // Line 1944 - Modified 
+    // Calculate halvings within current cycle (0-32). Modulo 33 resets every 33 halvings to create cycles.
     if (halvings >= 64)
         return 0;
-
-    CAmount nSubsidy = 50 * COIN;
+ CAmount nSubsidy = 50 * COIN;
     // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
+    
     nSubsidy >>= halvings;
-    return nSubsidy;
-}
+    return ((nHeight / 210000) / 33 < 70) ? nSubsidy : 0;    // Line 1952 - Modified
+}    /// Stop emission after 70 complete cycles. Each cycle = 33 halvings = 6,930,000 blocks = ~132 years. 
 
 CoinsViews::CoinsViews(DBParams db_params, CoinsViewOptions options)
     : m_dbview{std::move(db_params), std::move(options)},
