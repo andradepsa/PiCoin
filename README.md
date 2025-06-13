@@ -41,8 +41,7 @@
   ```cpp
   int halvings = (nHeight / 210000) % 33;
   return ((nHeight / 210000) / 33 < 70) ? nSubsidy : 0;
-
-
+---
 🌐 Official Website
 
 🔗 https://k10.netlify.app/recursos/picoin
