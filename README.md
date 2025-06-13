@@ -39,8 +39,8 @@
 - **Only 1 file modified:** `src/validation.cpp`  
 - **Only 2 lines changed:**
   ```cpp
-  int halvings = (nHeight / 210000) % 33;
-  return ((nHeight / 210000) / 33 < 70) ? nSubsidy : 0;
+  int halvings = (nHeight / 210000) % 33;       // Line 1944 - Modified
+  return ((nHeight / 210000) / 33 < 70) ? nSubsidy : 0;    // Line 1952 - Modified
 ---
 ## 🌐 Official Website
 
