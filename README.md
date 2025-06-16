@@ -328,7 +328,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Source Code:** [GitHub Repository](https://github.com/andradepsa/PiCoin)
 - **Releases:** Check GitHub releases for stable versions
 - **Documentation:** Wiki contains detailed technical information
-- **Website:** [PiCoin Extended Official Site](https://picoin-extended.com)
+- **Website:** [PiCoin Extended Official Site](https://k10.netlify.app/recursos/picoin#)
 
 ### Learning Resources
 - **Bitcoin Basics:** Understanding underlying technology
