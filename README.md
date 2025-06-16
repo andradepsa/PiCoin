@@ -45,209 +45,100 @@
 
 ---
 
-## 🌐 Official Website
+## 🚀 Quick Start Guide
 
-🔗 https://k10.netlify.app/recursos/picoin
+### 🔒 SECURITY FIRST
+⚠️ **CRITICAL:** Follow these security practices:
+- Use strong, unique passwords (12+ characters)
+- Restrict network access to localhost only
+- Enable wallet encryption immediately
+- Create regular backups of your wallet
+- Never share your private keys or passwords
 
----
-
-## 🚀 Network Status
-
-**🟢 LIVE & MINING** - The PiCoin Extended mainnet is operational!
-
-### Network Information
-- **P2P Port:** 9333
-- **RPC Port:** 9332
-- **Block Reward:** 50 PiCoins
-- **Block Time:** ~10 minutes
-- **Current Status:** Genesis Era
-
----
-
-## ⛏️ Quick Start Mining
-
-### 1. Download & Setup
+### 1. Download & Build
 ```bash
-git clone https://github.com/[YOUR_USERNAME]/PiCoin-Extended.git
-cd PiCoin-Extended
-```
-
-### 2. Create Data Directory
-```bash
-mkdir C:\PiCoin-Data
-```
-
-### 3. Configuration File
-Create `C:\PiCoin-Data\picoin.conf`:
-```ini
-server=1
-listen=1
-rpcallowip=127.0.0.1
-port=9333
-rpcport=9332
-rpcuser=[CHANGE_THIS_USERNAME]
-rpcpassword=[CHANGE_THIS_TO_STRONG_PASSWORD]
-maxconnections=125
-upnp=1
-```
-
-### 4. Start Mining Commands
-```bash
-# Start PiCoin Extended Node
-bitcoind.exe -datadir=C:\PiCoin-Data
-
-# Create Wallet
-bitcoin-cli.exe -datadir=C:\PiCoin-Data createwallet "PI"
-
-# Generate Address
-bitcoin-cli.exe -datadir=C:\PiCoin-Data getnewaddress
-
-# Start Mining (replace ADDRESS with your address)
-bitcoin-cli.exe -datadir=C:\PiCoin-Data generatetoaddress 1 ADDRESS
-
-# Check Balance
-bitcoin-cli.exe -datadir=C:\PiCoin-Data getbalance
-```
-
----
-
-## 🔒 Security Requirements
-
-⚠️ **CRITICAL SECURITY WARNINGS:**
-
-- **Change ALL default credentials** in picoin.conf
-- **Use strong passwords** (12+ characters, mixed case, numbers, symbols)
-- **Restrict RPC access** to localhost only (`rpcallowip=127.0.0.1`)
-- **Enable wallet encryption** with strong passphrase
-- **Create regular backups** of wallet.dat
-
-### Secure Wallet Commands
-```bash
-# Encrypt Wallet
-bitcoin-cli.exe encryptwallet "YourStrongPassphrase"
-
-# Backup Wallet
-bitcoin-cli.exe backupwallet "C:\Backup\wallet_backup.dat"
-
-# Unlock for Mining
-bitcoin-cli.exe walletpassphrase "YourPassphrase" 3600
-```
-
----
-
-## 🔍 Network Diagnostics
-
-### Check Network Status
-```bash
-# View Node Information
-bitcoin-cli.exe -datadir=C:\PiCoin-Data getnetworkinfo
-
-# Check Blockchain Status
-bitcoin-cli.exe -datadir=C:\PiCoin-Data getblockchaininfo
-
-# View Mining Information
-bitcoin-cli.exe -datadir=C:\PiCoin-Data getmininginfo
-
-# Check Connections
-bitcoin-cli.exe -datadir=C:\PiCoin-Data getpeerinfo
-```
-
-### Private Mining (Isolated Network)
-```bash
-bitcoind.exe -datadir=C:\PiCoin-Data -listen=0 -dnsseed=0 -discover=0
-```
-
----
-
-## 🛠️ Build Instructions
-
-### Prerequisites
-- Visual Studio 2019 or later
-- CMake 3.16+
-- vcpkg package manager
-
-### Compilation
-```bash
-# Clone repository
-git clone https://github.com/[YOUR_USERNAME]/PiCoin-Extended.git
-cd PiCoin-Extended
-
-# Create build directory
-mkdir build
-cd build
-
-# Configure with CMake
+git clone https://github.com/andradepsa/PiCoin.git
+cd PiCoin
+mkdir build && cd build
 cmake ..
-
-# Build
 cmake --build . --config Release
 ```
 
-### Executables Location
-After successful build, find executables in:
-- Windows: `build\bin\Release\`
-- Linux: `build/bin/`
+### 2. Basic Configuration
+Create configuration file with **secure settings**:
+```ini
+# Essential PiCoin Configuration
+server=1
+rpcallowip=127.0.0.1
+rpcuser=YOUR_SECURE_USERNAME
+rpcpassword=YOUR_STRONG_PASSWORD_HERE
+```
+
+### 3. Start Your Node
+```bash
+# Start PiCoin node (replace paths as needed)
+./bitcoind -datadir=/path/to/your/data
+
+# Create secure wallet
+./bitcoin-cli createwallet "your_wallet_name"
+
+# Get mining address
+./bitcoin-cli getnewaddress
+
+# Start mining
+./bitcoin-cli generatetoaddress 1 YOUR_ADDRESS
+```
+
+### 4. Security Setup
+```bash
+# Encrypt your wallet immediately
+./bitcoin-cli encryptwallet "your_strong_passphrase"
+
+# Create backup
+./bitcoin-cli backupwallet "/secure/backup/location/wallet_backup.dat"
+```
 
 ---
 
-## 📚 Technical Documentation
+## 🔍 Verify Your Setup
 
-### The Bitcoin 2141 Problem
+```bash
+# Check node status
+./bitcoin-cli getblockchaininfo
+
+# Check wallet balance
+./bitcoin-cli getbalance
+
+# View mining information
+./bitcoin-cli getmininginfo
+```
+
+---
+
+## 📚 The Bitcoin 2141 Problem
+
 Bitcoin's emission ends around 2141, leaving only transaction fees as miner incentives. PiCoin Extended solves this by implementing 70 Bitcoin-identical cycles extending operations for over 9,000 years.
 
 ### Mathematical Foundation
-```
-Total Cycles: 70
-Duration per Cycle: 132 years (33 halvings × 4 years)
-Coins per Cycle: ~21,000,000 (identical to Bitcoin)
-Total Supply: 70 × 21M = ~1.47 billion coins
-Final Year: 2025 + (70 × 132) = 11,265
-```
-
-### Code Changes
-The fork modifies only two lines in `src/validation.cpp`:
-
-**Original Bitcoin:**
-```cpp
-int halvings = nHeight / consensusParams.nSubsidyHalvingInterval;
-return nSubsidy;
-```
-
-**PiCoin Extended:**
-```cpp
-int halvings = (nHeight / 210000) % 33;
-return ((nHeight / 210000) / 33 < 70) ? nSubsidy : 0;
-```
+- **Total Cycles:** 70
+- **Duration per Cycle:** 132 years (33 halvings × 4 years)
+- **Coins per Cycle:** ~21,000,000 (identical to Bitcoin)
+- **Total Supply:** 70 × 21M = ~1.47 billion coins
+- **Final Year:** 2025 + (70 × 132) = 11,265
 
 ---
 
-## 🌍 Community & Support
+## 🛠️ Build Requirements
 
-### Development
-- **Issues:** Report bugs and feature requests
-- **Pull Requests:** Contribute code improvements
-- **Discussions:** Technical discussions and questions
+### Prerequisites
+- **Compiler:** GCC 7+ or Visual Studio 2019+
+- **Build System:** CMake 3.16+
+- **Dependencies:** Standard Bitcoin Core dependencies
 
-### Network Participation
-- **Early Mining:** Mine the first PiCoins Extended in history
-- **Node Operation:** Help secure the network
-- **Development:** Contribute to the ecosystem
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## ⚠️ Disclaimer
-
-PiCoin Extended is experimental software. Use at your own risk. Always:
-- Test on small amounts first
-- Keep secure backups
-- Use strong security practices
-- Understand the risks involved
+### Platform-Specific Notes
+- **Windows:** Use Visual Studio with vcpkg
+- **Linux:** Install build essentials and required libraries
+- **macOS:** Use Homebrew for dependencies
 
 ---
 
@@ -257,4 +148,100 @@ PiCoin Extended is experimental software. Use at your own risk. Always:
 
 ---
 
-**🚀 Start mining today and become part of cryptocurrency history!**
+## 🔒 Advanced Security
+
+### Network Security
+- Configure firewall to allow only necessary connections
+- Use VPN for additional network protection
+- Regular security updates and monitoring
+
+### Wallet Security
+- Use hardware wallets when available
+- Multi-signature setups for large amounts
+- Regular backup verification
+
+### Operational Security
+- Separate mining and storage systems
+- Monitor for unusual network activity
+- Keep detailed transaction logs
+
+---
+
+## 🌍 Community Guidelines
+
+### Development Contributions
+- **Bug Reports:** Use GitHub Issues with detailed information
+- **Feature Requests:** Discuss in GitHub Discussions first
+- **Code Contributions:** Follow Bitcoin Core coding standards
+
+### Network Participation
+- **Node Operation:** Help decentralize the network
+- **Mining:** Contribute to network security
+- **Testing:** Participate in testnet activities
+
+---
+
+## 📄 Legal & Compliance
+
+### License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+### Regulatory Considerations
+- **Know Your Local Laws:** Cryptocurrency regulations vary by jurisdiction
+- **Tax Implications:** Mining and trading may have tax consequences
+- **AML/KYC:** Be aware of anti-money laundering requirements
+
+---
+
+## ⚠️ Important Disclaimers
+
+**PiCoin Extended is experimental software.** Use at your own risk.
+
+### Risk Factors
+- Software bugs may cause loss of funds
+- Network attacks could compromise security
+- Regulatory changes may affect usability
+- Market volatility affects value
+
+### Best Practices
+- Start with small test amounts
+- Maintain secure backups at all times
+- Keep software updated
+- Understand the technology before investing significant resources
+- Never invest more than you can afford to lose
+
+---
+
+## 🆘 Troubleshooting
+
+### Common Issues
+- **Build Failures:** Check dependencies and compiler versions
+- **Network Issues:** Verify firewall and network configuration
+- **Sync Problems:** Ensure adequate disk space and network connectivity
+
+### Getting Help
+- **Documentation:** Check GitHub wiki for detailed guides
+- **Community:** Join discussions for peer support
+- **Issues:** Report bugs with detailed logs and system information
+
+---
+
+## 🔗 Additional Resources
+
+### Official Links
+- **Source Code:** [GitHub Repository](https://github.com/andradepsa/PiCoin)
+- **Releases:** Check GitHub releases for stable versions
+- **Documentation:** Wiki contains detailed technical information
+
+### Learning Resources
+- **Bitcoin Basics:** Understanding underlying technology
+- **Cryptocurrency Security:** Best practices for safe operation
+- **Blockchain Development:** Contributing to the project
+
+---
+
+**🚀 Ready to start mining? Follow the security guidelines above and become part of cryptocurrency history!**
+
+---
+
+*Last updated: June 2025 | Always verify information from official sources*
