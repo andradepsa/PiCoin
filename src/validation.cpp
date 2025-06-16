@@ -1949,7 +1949,7 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
     // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
     
     nSubsidy >>= halvings;
-    return ((nHeight / 210000) / 33 < 70) ? nSubsidy : 0;    // Line 1952 - Modified
+   return (nHeight < 70 * 210000 * 33) ? nSubsidy : 0;    // Line 1952 - Modified
 }    /// Stop emission after 70 complete cycles. Each cycle = 33 halvings = 6,930,000 blocks = ~132 years. 
 
 CoinsViews::CoinsViews(DBParams db_params, CoinsViewOptions options)
