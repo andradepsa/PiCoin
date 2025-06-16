@@ -1,5 +1,4 @@
-# 🪙 PiCoin Extended
-
+# 🪙 PiCoin
 **Independent cryptocurrency network with 70 emission cycles extending operations until year 11,265.**
 
 **PiCoin Extended** is a completely independent cryptocurrency that operates on its own blockchain network, separate from Bitcoin. It introduces an innovative emission system with **70 emission cycles**, each lasting **132 years**. The system is designed to operate until the year **11,265**, starting in **2025**. In each cycle, exactly **21 million coins** will be issued, maintaining controlled and predictable supply.
