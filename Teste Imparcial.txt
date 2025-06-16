@@ -1,0 +1,84 @@
+# Documento de Teste Imparcial para Sistema de Emissão Criptográfica
+
+## Contexto
+Este documento contém um algoritmo de emissão para uma criptomoeda que requer validação independente. O objetivo é verificar se o comportamento matemático está correto conforme as especificações.
+
+## Algoritmo a ser Testado
+
+```cpp
+CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
+{
+    int halvings = (nHeight / 210000) % 33;
+    if (halvings >= 64)
+        return 0;
+    CAmount nSubsidy = 50 * COIN;
+    nSubsidy >>= halvings;
+    return (nHeight < 70 * 210000 * 33) ? nSubsidy : 0;
+}
+```
+
+## Especificações do Sistema
+
+1. **Intervalo de Halving**: A cada 210,000 blocos
+2. **Recompensa Inicial**: 50 unidades por bloco
+3. **Mecanismo de Halving**: Divisão por 2 a cada intervalo
+4. **Sistema de Ciclos**: 
+   - Cada ciclo contém 33 halvings
+   - Após 33 halvings, o sistema deve resetar para a recompensa inicial
+   - Total de 70 ciclos permitidos
+5. **Fim da Emissão**: Após completar 70 ciclos completos
+
+## Constantes
+- `COIN = 100,000,000` (unidade base)
+- `nHeight` = altura do bloco (começando em 0)
+
+## Testes Solicitados
+
+Por favor, implemente este algoritmo e verifique:
+
+### Teste 1: Comportamento no Primeiro Ciclo
+Verifique as recompensas para os blocos:
+- 0, 210000, 420000, 630000, 840000, 1050000
+
+### Teste 2: Comportamento no Reset de Ciclo
+Verifique as recompensas para os blocos:
+- 6929999 (final do primeiro ciclo)
+- 6930000 (início do segundo ciclo)
+- 7140000 (primeiro halving do segundo ciclo)
+
+### Teste 3: Múltiplos Ciclos
+Verifique se os primeiros blocos dos ciclos 1, 2, 3, 4, 5 têm recompensa de 50 unidades.
+
+### Teste 4: Fim da Emissão
+Verifique as recompensas para os blocos:
+- 485099999
+- 485100000
+- 485100001
+
+## Questões para Análise
+
+1. O primeiro ciclo se comporta como um sistema de halving tradicional?
+2. O sistema reseta corretamente após 33 halvings?
+3. O sistema para a emissão no momento correto?
+4. Quantos blocos totais terão emissão?
+5. Qual seria a duração aproximada em anos (assumindo 4 anos por halving)?
+
+## Instruções
+
+- Implemente o algoritmo exatamente como fornecido
+- Execute os testes sugeridos
+- Reporte os resultados sem assumir se estão "corretos" ou "incorretos"
+- Baseie sua análise apenas na matemática e lógica do código
+- Não consulte informações externas sobre sistemas similares
+
+## Formato de Resposta Esperado
+
+Para cada teste, forneça:
+- Valor de entrada (altura do bloco)
+- Valor de saída (recompensa calculada)
+- Cálculos intermediários (valor de `halvings`, etc.)
+- Observações sobre o comportamento
+
+## Nota Importante
+
+Este é um teste de verificação independente. Analise apenas o código fornecido e sua lógica matemática, sem fazer comparações com sistemas existentes ou assumir qual deveria ser o comportamento "correto".
