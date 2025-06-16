@@ -125,12 +125,14 @@ public:
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 32-bit integer with any alignment.
+         * 
+         * PiCoin Extended - Modified magic bytes for separate network
          */
-        pchMessageStart[0] = 0xf9;
+        pchMessageStart[0] = 0xf0;  // PiCoin Extended - Changed from Bitcoin's 0xf9
         pchMessageStart[1] = 0xbe;
         pchMessageStart[2] = 0xb4;
         pchMessageStart[3] = 0xd9;
-        nDefaultPort = 8333;
+        nDefaultPort = 9333;        // PiCoin Extended - Changed from Bitcoin's 8333
         nPruneAfterHeight = 100000;
         m_assumed_blockchain_size = 720;
         m_assumed_chain_state_size = 14;
